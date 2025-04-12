@@ -2,144 +2,93 @@
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-[![RESTful API](https://img.shields.io/badge/RESTful-API-blue?style=for-the-badge)]()
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-A-brightgreen?style=for-the-badge)]())
 
-> 📚 A Student API project demonstrating RESTful web services using Node.js and Express.
+> 📚 A comprehensive collection of daily practical lessons for Web Services and Server Technologies course.
 
-## 📋 Project Overview
+## 📋 Course Overview
 
-This repository contains a Student API implementation that demonstrates RESTful web services using Node.js and Express. The project includes a complete backend system for managing student data with various endpoints for retrieving, filtering, and sorting student information.
+This repository serves as a practical guide through various web services and server technologies. Each lesson is organized in dedicated folders containing both source code and visual outputs.
 
-## 🗓️ Latest Session: Student API Implementation (April 7, 2025)
+## 🗓️ Latest Session: Student Management REST API Implementation
 
 ### 🎯 Learning Objectives
 
-- Implement a RESTful API using Express.js
-- Create routes for data retrieval and filtering
-- Develop service layers for data access
-- Implement query parameter handling
-- Design effective API response formats
+- Build a RESTful API using Express.js and Node.js
+- Implement CRUD operations for student data management
+- Create efficient routing and service layers
+- Develop search and filter functionalities
+- Implement sorting and pagination features
+- Handle API responses and error cases
+- Structure the application using modular components
 - Test API endpoints using Postman
-- Implement sorting and pagination functionality
-- Create combined filtering capabilities
 
-### 💻 Project Structure
+### 💻 Code Structure & Implementation
 
-```
-Code/
-├── index.js                # Main server entry point
-├── package.json            # Project dependencies
-├── student/
-│   ├── server.js           # (Deprecated) Previous server implementation
-│   ├── studentroute.js     # API route definitions
-│   ├── studentsdb.js       # Student data storage
-│   ├── studentservice.js   # Service layer for data access
-│   └── postman_guide.md    # Documentation for API testing
-```
+#### 1. Core Components
 
-### 🚀 API Endpoints
+##### Server Configuration (`index.js`)
+- Express.js server setup
+- Middleware configuration
+- Route integration
+- Error handling
 
-#### 1. Get All Students
-- **Method**: GET
-- **URL**: `/students`
-- **Description**: Retrieves a list of all students from the database
-- **Example**: [View Output](Output/Get%20All%20Students.png)
-
-#### 2. Get Student by ID
-- **Method**: GET
-- **URL**: `/students/:id`
-- **Description**: Finds a specific student using their ID number
-- **Example**: [View Output](Output/Get%20Student%20by%20ID.png)
-
-#### 3. Search Students by Name
-- **Method**: GET
-- **URL**: `/students/search?name=query`
-- **Description**: Searches for students by their name
-- **Example**: [View Output](Output/Search%20Students%20by%20Name.png)
-
-#### 4. Filter Students by Age
-- **Method**: GET
-- **URL**: `/students/filter?age=value`
-- **Description**: Filters students by their age
-- **Example**: [View Output](Output/Filter%20Students%20by%20Age.png)
-
-#### 5. Filter Students by Course
-- **Method**: GET
-- **URL**: `/students/filter?course=value`
-- **Description**: Filters students by their enrolled course
-- **Example**: [View Output](Output/Filter%20Students%20by%20Course.png)
-
-#### 6. Filter Students by Gender
-- **Method**: GET
-- **URL**: `/students/filter?gender=value`
-- **Description**: Filters students by their gender
-- **Example**: [View Output](Output/Filter%20Students%20by%20Gender.png)
-
-#### 7. Combined Filters
-- **Method**: GET
-- **URL**: `/students/filter?param1=value1&param2=value2`
-- **Description**: Filter students using multiple criteria
-- **Example**: [View Output](Output/Combined%20Filters%20Age%20and%20Course.png)
-
-#### 8. Sort and Limit Results
-- **Method**: GET
-- **URL**: `/students?sort=field&order=direction&limit=number`
-- **Description**: Get students with sorting and limiting options
-- **Examples**: 
-  - [Sort by age (ascending)](Output/Sort%20and%20Limit%20Results%20Sort%20by%20age%20(ascending).png)
-  - [Sort by name (descending) with limit](Output/Sort%20and%20Limit%20Results%20Sort%20by%20name%20(descending)%20with%20limit.png)
-
-### 📊 Implementation Details
-
-#### Student Data Structure
-
+##### Data Layer (`studentsdb.js`)
 ```javascript
-// Sample student object
-{
-  regno: '2020ict32',  // Registration number (unique ID)
-  name: 'anushika',    // Student name
-  gender: 'f',         // Gender (m/f)
-  age: '25',           // Age
-  course: 'ICT'        // Course enrolled
+let students = [
+    {regno:'2020ict32',name:'anushika',gender:'f',age:'25',course:'ICT'},
+    {regno:'2020ict125',name:'wenura',gender:'m',age:'25',course:'ICT'},
+    // More student records...
+];
+```
+
+##### Service Layer (`studentservice.js`)
+```javascript
+function getStudents() {
+    return students;
+}
+
+function getStudentById(id) {
+    return students.find(student => student.regno == id);
 }
 ```
 
-#### Server Implementation
+#### 2. API Endpoints
 
-The API server is implemented using Express.js with the following components:
-
-- **index.js**: Main server entry point that configures Express and routes
-- **studentroute.js**: Defines all API endpoints and request handling logic
-- **studentsdb.js**: Contains the student data (simulated database)
-- **studentservice.js**: Service layer that provides data access methods
-
-### 🔍 Technical Notes
-
-- The API follows RESTful design principles
-- Query parameters are used for filtering and sorting
-- Route parameters are used for resource identification
-- Appropriate HTTP status codes are returned for success and error cases
-- The API includes comprehensive error handling
-- Documentation is provided for testing with Postman
+##### Student Routes (`studentroute.js`)
+- GET `/students` - Retrieve all students
+- GET `/students/search?name={query}` - Search students by name
+- GET `/students/filter` - Filter students by various criteria
+- GET `/students/sort` - Sort and paginate results
+- GET `/students/{id}` - Get student by ID
 
 ### 📊 Implementation Summary
 
-| Category | File | Description | Output |
-|----------|------|-------------|--------|
-| Server Setup | `index.js` | Main server configuration and initialization | - |
-| API Routes | `studentroute.js` | API endpoint definitions and request handling | [View All Students](Output/Get%20All%20Students.png) |
-| Data Storage | `studentsdb.js` | Student data management and storage | - |
-| Service Layer | `studentservice.js` | Business logic and data access methods | - |
-| Documentation | `postman_guide.md` | API testing and usage documentation | - |
-| Search Operations | `studentroute.js` | Name-based student search implementation | [View Search](Output/Search%20Students%20by%20Name.png) |
-| Filter Operations | `studentroute.js` | Multi-criteria student filtering | [View Filters](Output/Combined%20Filters%20Age%20and%20Course.png) |
-| Sort Operations | `studentroute.js` | Student data sorting and pagination | [View Sorting](Output/Sort%20and%20Limit%20Results%20Sort%20by%20age%20(ascending).png) |
+| Category | Endpoint | Description | Output |
+|----------|----------|-------------|--------|
+| Basic Operations | `GET /students` | Retrieve all students | [View](outputs/Get%20All%20Students.png) |
+| Search | `GET /students/search` | Search by student name | [View](outputs/Search%20Students%20by%20Name.png) |
+| Filtering | `GET /students/filter?age=25` | Filter by age | [View](outputs/Filter%20Students%20by%20Age.png) |
+| Filtering | `GET /students/filter?gender=f` | Filter by gender | [View](outputs/Filter%20Students%20by%20Gender.png) |
+| Filtering | `GET /students/filter?course=ICT` | Filter by course | [View](outputs/Filter%20Students%20by%20Course.png) |
+| Advanced Filtering | `GET /students/filter?age=25&course=ICT` | Combined filters | [View](outputs/Combined%20Filters%20Age%20and%20Course.png) |
+| Sorting & Pagination | `GET /students/sort?field=age&order=asc` | Sort by age ascending | [View](outputs/Sort%20and%20Limit%20Results%20Sort%20by%20age%20(ascending).png) |
+| Sorting & Pagination | `GET /students/sort?field=name&order=desc&limit=3` | Sort by name with limit | [View](outputs/Sort%20and%20Limit%20Results%20Sort%20by%20name%20(descending)%20with%20limit.png) |
+| Individual Records | `GET /students/:id` | Get student by ID | [View](outputs/Get%20Student%20by%20ID.png) |
+
+### 🔍 Technical Notes
+
+- Built with Express.js and Node.js
+- Modular architecture with separate routing and service layers
+- Comprehensive error handling
+- Flexible filtering and sorting capabilities
+- Documented API endpoints with example responses
+- Postman collection for API testing
 
 ---
 
 <div align="center">
 
-📖 **RESTful API** | 🛠️ **Express.js** | 📊 **Student Data Management**
+📖 **API Documentation** | 🛠️ **Implementation Details** | 📊 **Test Results**
 
 </div>
